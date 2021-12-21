@@ -4,13 +4,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 
 
 import { AppComponent } from './app.component';
-import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component'
-import { PostListComponent } from './posts/post-list/post-list.component'
-import { PostsService } from './posts/posts.service';
 import { HttpClientModule } from '@angular/common/http'
-import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component'
@@ -18,29 +14,26 @@ import { AuthInterceptor } from './auth/auth-interceptor'
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { ErrorInterceptor } from './error.interceptor'
 import { AngularMaterialModule } from './angular-material-module';
+import { PostsModule } from './posts/posts.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostCreateComponent,
     HeaderComponent,
-    PostListComponent,
-    LoginComponent,
-    SignupComponent
+    
   ],
   imports: [
     BrowserModule,
     NoopAnimationsModule,
-    ReactiveFormsModule,
     FormsModule,
     AngularMaterialModule,
     HttpClientModule,
     AppRoutingModule,
-
+    PostsModule,AuthModule
   ],
   providers: [
-    // PostsService
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

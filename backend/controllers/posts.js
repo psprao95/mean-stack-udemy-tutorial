@@ -2,7 +2,7 @@ const Post = require('../models/post')
 const multer = require('multer');
 
 
-exports.getPosts= (req, res,next) => {
+exports.getPosts = (req, res, next) => {
   console.log(req.query);
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
@@ -33,7 +33,7 @@ exports.getPosts= (req, res,next) => {
 
 
 // Get a specific post
-exports.getPost= (req, res) => {
+exports.getPost = (req, res) => {
   Post.findById(req.params.id).then(post => {
     if (post) {
       res.status(200).json(post);
@@ -44,7 +44,7 @@ exports.getPost= (req, res) => {
 };
 
 // Add a new post
-exports.addPost= (req, res) => {
+exports.addPost = (req, res) => {
   const url = req.protocol + "://" + req.get("host");
   const post = new Post({
     title: req.body.title,
@@ -73,7 +73,7 @@ exports.addPost= (req, res) => {
 };
 
 
-exports.updatePost= (req, res) => {
+exports.updatePost = (req, res) => {
   //const url = req.protocol+"://"+req.get("host");
   //console.log(req.file);
   let imagePath = req.body.imagePath;
@@ -105,7 +105,7 @@ exports.updatePost= (req, res) => {
   })
 };
 
-exports.deletePost= (req, res) => {
+exports.deletePost = (req, res) => {
 
   Post.deleteOne({ _id: req.params.id, creator: req.userData.userId }).then(result => {
     console.log(result)

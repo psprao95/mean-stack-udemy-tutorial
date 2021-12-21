@@ -12,9 +12,6 @@ app.use(bodyParser.json())
 app.set('port', port);
 app.use('/images', express.static(path.join('backend/images')))
 
-
-
-
 mongoose.connect('mongodb+srv://testdb:test123@cluster0.fhjkg.mongodb.net/mean-tutorial?retryWrites=true&w=majority')
   .then(() => {
     console.log('connected to database...')
@@ -22,19 +19,6 @@ mongoose.connect('mongodb+srv://testdb:test123@cluster0.fhjkg.mongodb.net/mean-t
   .catch(() => {
     console.log('connection failed');
   });
-
-/*app.use((req,res,next)=>{
-  console.log('First Middleware')
-  //next();
-})
-
-app.use((req,res,next)=>{
-  res.send('Hello from express');
-
-})*/
-
-
-
 
 
 // solving the CORS
@@ -46,12 +30,7 @@ app.use('/', (req, res, next) => {
 })
 
 
-
-
-
-
-
 app.use(postsRoutes);
 app.use("/api/users", userRoutes)
-//app.use("/api/posts",postsRoutes);
+
 module.exports = app;
