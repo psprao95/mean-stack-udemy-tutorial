@@ -11,6 +11,9 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./post-list.component.css'],
 })
 export class PostListComponent implements OnInit, OnDestroy {
+
+  constructor(public postsService: PostsService, private authService: AuthService) {}
+  
   totalPosts = 0;
   postsPerPage = 2;
   pageSizeOptions = [1, 2, 5, 10];
@@ -46,11 +49,6 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.userId = this.authService.getUserId()
       });
   }
-
-  constructor(
-    public postsService: PostsService,
-    private authService: AuthService
-  ) {}
 
   ngOnDestroy() {
     this.postsSub.unsubscribe();

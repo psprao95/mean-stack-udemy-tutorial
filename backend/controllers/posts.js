@@ -1,5 +1,4 @@
 const Post = require('../models/post')
-const multer = require('multer');
 
 
 exports.getPosts = (req, res, next) => {
@@ -11,7 +10,6 @@ exports.getPosts = (req, res, next) => {
   if (pageSize && currentPage) {
     postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
   }
-
   postQuery.find().
     then(documents => {
       fetchedPosts = documents;
@@ -43,7 +41,7 @@ exports.getPost = (req, res) => {
   })
 };
 
-// Add a new post
+
 exports.addPost = (req, res) => {
   const url = req.protocol + "://" + req.get("host");
   const post = new Post({
@@ -80,10 +78,7 @@ exports.updatePost = (req, res) => {
   if (req.file) {
     imagePath = req.protocol + "://" + req.get("host") + "/images/" + req.file.filename
   }
-
-
-
-  post = new Post({
+  let post = new Post({
     _id: req.params.id,
     title: req.body.title,
     content: req.body.content,
@@ -107,16 +102,14 @@ exports.updatePost = (req, res) => {
 
 exports.deletePost = (req, res) => {
 
-  Post.deleteOne({ _id: req.params.id, creator: req.userData.userId }).then(result => {
-    console.log(result)
-
-    //console.log(req.params.id);
-    if (result.n > 0) {
+  Post.deleteOne({ _id: req.params.id, creator: req.userData.userId })
+  .then(result => {
+    console.log(result);
+    if (result.deletedCount ==1) {
       res.status(200).json({ message: 'Successfully deleted' });
     } else {
-      res.status(401).json({ message: 'Not authorized' })
+      res.status(401).json({ message: 'Not authorized to perform delete op' })
     }
   });
 };
 
-//module.exports = router;

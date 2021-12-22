@@ -4,10 +4,10 @@ const PostsController = require('../controllers/posts')
 const extractFile = require('../middleware/file')
 const checkAuth = require('../middleware/check-auth')
 
-router.get('/api/posts',PostsController.getPosts);
-router.get('/api/posts/:id', PostsController.getPost);
-router.post('/api/posts', checkAuth, extractFile, PostsController.addPost);
-router.put('/api/posts/:id', checkAuth, extractFile,PostsController.updatePost);
-router.delete('/api/posts/:id', checkAuth, PostsController.deletePost);
+router.get('/',PostsController.getPosts);
+router.get('/:id', PostsController.getPost);
+router.post('/', checkAuth, extractFile, PostsController.addPost);
+router.put('/:id', checkAuth, extractFile,PostsController.updatePost);
+router.delete('/:id', checkAuth, PostsController.deletePost);
 
 module.exports = router;
