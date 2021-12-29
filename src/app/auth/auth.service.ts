@@ -12,7 +12,7 @@ export class AuthService {
   isAuthenticated = false;
   private tokenTimer: any;
   private userId: any;
-  authStatusListener = new Subject<boolean>();
+  private authStatusListener = new Subject<boolean>();
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   isAuth() {

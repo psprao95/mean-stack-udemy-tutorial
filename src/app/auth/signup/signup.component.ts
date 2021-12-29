@@ -9,7 +9,9 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit, OnDestroy {
   private authStatusSub: Subscription;
+
   constructor(public authService: AuthService) {}
+  
   isLoading = false;
 
   onSignup(form: NgForm) {
