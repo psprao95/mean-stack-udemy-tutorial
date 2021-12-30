@@ -36,7 +36,7 @@ exports.loginUser = (req, res, next) => {
       if (!result) {
         return res.status(401).json({ 'message': 'Auth failed - password mismatch' });
       }
-      const token = jwt.sign({ email: fetchedUser.email, userId: fetchedUser._id }, 'secret_key', { expiresIn: '1h' });
+      const token = jwt.sign({ email: fetchedUser.email, userId: fetchedUser._id }, process.env.JWT_KEY, { expiresIn: '1h' });
       console.log(token);
       return res.status(200).json({ token: token, expiresIn: 3600, userId: fetchedUser._id })
     })

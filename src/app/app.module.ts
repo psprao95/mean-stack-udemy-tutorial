@@ -31,7 +31,7 @@ import { AuthModule } from './auth/auth.module';
     AngularMaterialModule,
     HttpClientModule,
     AppRoutingModule,
-    PostsModule,AuthModule
+    PostsModule
   ],
   providers: [
     {

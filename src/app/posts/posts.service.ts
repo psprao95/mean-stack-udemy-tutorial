@@ -4,7 +4,9 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-//
+import { environment } from "../../environments/environment"
+
+const BACKEND_URL = environment.apiUrl + "/posts";
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
@@ -19,14 +21,15 @@ export class PostsService {
 
   getPost(id: string) {
     //return { ...this.posts.find((p) => p._id === id) };
-    return this.http.get<{ _id: string, title: string, content: string, imagePath: string, creator: string }>('http://localhost:3000/api/posts/' + id);
+    return this.http.get<{ _id: string, title: string, content: string, imagePath: string, creator: string }>
+      (BACKEND_URL + '/' + id);
   }
 
   getPosts(postsPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`
     this.http
       .get<{ message: string; posts: Post[], maxPosts: number }>(
-        'http://localhost:3000/api/posts' + queryParams
+        BACKEND_URL + queryParams
       )
       .subscribe((postsData) => {
         console.log(postsData)
@@ -43,7 +46,7 @@ export class PostsService {
     postData.append("image", image, title);
     this.http
       .post<{ message: string; post: Post }>(
-        'http://localhost:3000/api/posts',
+        BACKEND_URL,
         postData
       )
       .subscribe((responseData) => {
@@ -77,7 +80,7 @@ export class PostsService {
       };
     }
     this.http
-      .put<{ message: string }>('http://localhost:3000/api/posts/' + id, postData)
+      .put<{ message: string }>(BACKEND_URL + '/' + id, postData)
       .subscribe((responseData) => {
         /*console.log(responseData);
         const updatedPosts = [...this.posts];
@@ -99,7 +102,7 @@ export class PostsService {
 
   deletePost(postId: string) {
     return this.http
-      .delete<{ message: string }>('http://localhost:3000/api/posts/' + postId)
+      .delete<{ message: string }>(BACKEND_URL + '/' + postId)
     /*.subscribe((responseData) => {
       console.log(responseData);
       const updatedPosts = this.posts.filter((post) => post._id !== postId);
